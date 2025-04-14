@@ -1,0 +1,46 @@
+export const listingSearchableFields = [
+  'title',
+  'condition',
+  'category',
+  'description',
+  'location',
+];
+// Reusable enums for validation
+export const categoryEnum = [
+  'Electronics',
+  'Furniture',
+  'Clothing & Accessories',
+  'Books & Magazines',
+  'Vehicles',
+  'Home Appliances',
+  'Sports & Outdoors',
+  'Toys & Games',
+  'Beauty & Personal Care',
+  'Tools & Hardware',
+  'Collectibles & Art',
+  'Pet Supplies',
+  'Musical Instruments',
+  'Office Supplies & Stationery',
+  'Mobile Phones & Accessories',
+  'Computers & Laptops',
+  'Gaming Consoles & Accessories',
+  'Cameras & Photography',
+  'Baby Products',
+  'Jewelry & Watches',
+  'Garden & Outdoor',
+  'Kitchenware & Dining',
+  'Health & Wellness',
+  'Car Accessories & Parts',
+  'Real Estate',
+  'Bicycles & Accessories',
+  'Tickets & Vouchers',
+  'Handmade & Crafts',
+  'Antiques',
+  'Industrial Equipment',
+  'Farming Tools & Machinery',
+  'Services',
+  'Other',
+];
+
+export const conditionEnum = ['new', 'like new', 'used', 'for parts'];
+export const statusEnum = ['available', 'sold'];
