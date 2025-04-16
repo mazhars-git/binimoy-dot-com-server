@@ -1,0 +1,1 @@
+export const TOrderStatus = ['pending', 'completed'] ;
