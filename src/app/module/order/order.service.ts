@@ -126,25 +126,28 @@ const getPurchaseOfUserFromDB = async (userId: string) => {
 };
 
 const updateOrderStatus = async (
-    orderId: string,
-    newStatus: { status: TOrderStatus }
-  ) => {
-    const existingOrder = await Order.findById(orderId);
-    if (!existingOrder) {
-      throw new AppError(StatusCodes.NOT_FOUND, 'No order found with the given ID.');
-    }
-  
-    const updatedOrder = await Order.findByIdAndUpdate(orderId, newStatus, {
-      new: true,
-    });
-  
-    return updatedOrder;
-  };
+  orderId: string,
+  newStatus: { status: TOrderStatus },
+) => {
+  const existingOrder = await Order.findById(orderId);
+  if (!existingOrder) {
+    throw new AppError(
+      StatusCodes.NOT_FOUND,
+      'No order found with the given ID.',
+    );
+  }
+
+  const updatedOrder = await Order.findByIdAndUpdate(orderId, newStatus, {
+    new: true,
+  });
+
+  return updatedOrder;
+};
 
 export const OrderService = {
   createOrderIntoDB,
   verifyPayment,
   getSalesOfUserFromDB,
   getPurchaseOfUserFromDB,
-  updateOrderStatus
+  updateOrderStatus,
 };

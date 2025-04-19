@@ -56,7 +56,7 @@ git clone
 2. Navigate to the project directory:
 
 ```bash
-cd ecotrade-backend
+cd adolBodol-backend
 ```
 
 3. Install dependencies:
