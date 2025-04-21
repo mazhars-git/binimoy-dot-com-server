@@ -7,11 +7,9 @@ import { Order } from './order.model';
 import { orderUitls } from './order.utils';
 
 const createOrderIntoDB = async (payload: TOrder, client_ip: string) => {
-  console.log('payload', payload);
 
   const { buyerId, sellerId, product } = payload;
 
-  console.log(product);
 
   const buyer = await User.findById(buyerId);
   const seller = await User.findById(sellerId);

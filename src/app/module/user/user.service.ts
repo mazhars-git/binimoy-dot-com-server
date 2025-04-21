@@ -45,7 +45,6 @@ const updateProfile = async (
   if (userData.email !== user.email)
     throw new AppError(status.UNAUTHORIZED, 'You are not authorized!');
 
-  // // Ensure the user can only update name, status and shippingAddress
 
   const allowedUpdates: (keyof TUser)[] = ['name', 'phoneNumber', 'photo'];
   const filteredUpdates: Partial<TUser> = {};

@@ -8,6 +8,14 @@ import AppError from '../../errors/AppError';
 const createWishlistIntoDB = async (payload: TWishlist) => {
   const { userId, productId } = payload;
 
+  // Check if product already in wishlist
+
+  const alreadyExists = await Wishlist.findOne({ userId, productId, isDeleted: false });
+
+  if (alreadyExists) {
+    throw new AppError(StatusCodes.CONFLICT, 'This product is already in your wishlist.');
+  }
+
   if (!userId) {
     throw new AppError(StatusCodes.UNAUTHORIZED, 'Please log in to add items to your wishlist.');
   }
@@ -18,15 +26,10 @@ const createWishlistIntoDB = async (payload: TWishlist) => {
     throw new AppError(StatusCodes.NOT_FOUND, 'User not found.');
   }
 
-  // Check if product already in wishlist
-  const alreadyExists = await Wishlist.findOne({ userId, productId, isDeleted: false });
 
-  if (alreadyExists) {
-    throw new AppError(StatusCodes.CONFLICT, 'This product is already in your wishlist.');
-  }
 
   // Create new wishlist entry
-  const wishlistItem = await Wishlist.create({ userId, productId });
+  const wishlistItem = await Wishlist.create(payload);
 
   return wishlistItem;
 };
@@ -63,7 +66,7 @@ const getWishlistIntoDB = async (userId: string) => {
 
 // DELETE (Soft Delete) Wishlist Item
 const deleteWishlistFromDB = async (userId: string, productId: string) => {
-  const wishlistItem = await Wishlist.findOne({ userId, productId, isDeleted: false });
+  const wishlistItem = await Wishlist.findOne({ userId, productId });
 
   if (!wishlistItem) {
     throw new AppError(StatusCodes.NOT_FOUND, 'Item not found in your wishlist.');

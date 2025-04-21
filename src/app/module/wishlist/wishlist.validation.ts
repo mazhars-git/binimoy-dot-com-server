@@ -7,11 +7,10 @@ const createWishlistValidationSchema = z.object({
       message: 'Invalid user Id format',
     }),
 
-    productId: z.array(
-      z.string().refine((id) => mongoose.Types.ObjectId.isValid(id), {
-        message: 'Invalid Product Id format',
-      }),
-    ),
+    productId:
+    z.string().refine((id) => mongoose.Types.ObjectId.isValid(id), {
+      message: 'Invalid product Id format',
+    }),
     isDeleted: z.boolean().optional(),
   }),
 });

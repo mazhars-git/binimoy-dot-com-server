@@ -15,9 +15,9 @@ router.get(
   UserController.getMyProfile,
 );
 
-router.get('/:id', auth(USER_ROLE.admin), UserController.getSingleUser);
+router.get('/:id',  auth(USER_ROLE.admin), UserController.getSingleUser);
 
-router.patch(
+router.put(
   '/:id',
   auth(USER_ROLE.admin, USER_ROLE.user),
   validateRequest(UserValidation.updateProfileValidationSchema),

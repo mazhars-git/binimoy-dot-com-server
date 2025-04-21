@@ -8,7 +8,7 @@ import { wishlistValidation } from './wishlist.validation';
 
 const router = express.Router();
 
-router.get('/', WishlistController.getWishlist);
+router.get('/:userId', WishlistController.getWishlist);
 
 router.post(
   '/',
@@ -19,7 +19,7 @@ router.post(
 
 router.delete(
   '/:id',
-  auth(USER_ROLE.admin, USER_ROLE.user),
+  auth( USER_ROLE.user),
   WishlistController.deleteWishlist,
 );
 
