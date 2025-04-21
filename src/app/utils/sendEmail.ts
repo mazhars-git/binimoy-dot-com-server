@@ -15,7 +15,7 @@ export const sendEmail = async (to: string, html: string) => {
     from: config.NODEMAILER_SENDER_EMAIL, // sender address
     to, // list of receivers
     subject:
-      'Change Password: Reset your password within 10 minutes by clicking on the link', // Subject line
+      'Change Password: Reset your password within 7 days by clicking on the link', // Subject line
     text: '', // plain text body
     html, // html body
   });

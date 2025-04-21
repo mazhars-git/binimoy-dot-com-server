@@ -285,7 +285,7 @@ const resetPassword = async (
 
   await User.findOneAndUpdate(
     {
-      id: decoded?.userId,
+      email: decoded?.email,
       role: decoded?.role,
     },
     {
