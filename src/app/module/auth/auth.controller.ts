@@ -110,7 +110,8 @@ const forgetPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
-    message: 'Reset link is generated succesfully! And sent to your email',
+    message:
+      'Reset link is generated succesfully! And sent to your email. Please check your email.',
     data: result,
   });
 });
