@@ -91,6 +91,15 @@ const changeStatus = async (
 };
 
 const banUser = async (id: string, payload: Partial<TUser>) => {
+  // Ensure if the user is admin then he can ban self
+
+  const userData = await User.findOne({ _id: id });
+
+  if (!userData) throw new AppError(status.NOT_FOUND, 'User not found');
+
+  if (userData.role === 'admin')
+    throw new AppError(status.UNAUTHORIZED, 'You are not authorized!');
+
   // Ensure the user can only update name, status and shippingAddress
 
   const allowedUpdates: (keyof TUser)[] = ['isBan'];
