@@ -33,7 +33,6 @@ const getWishlist = catchAsync(async (req: Request, res: Response) => {
 
 const deleteWishlist = catchAsync(async (req: Request, res: Response) => {
     const { userId } = req.user as JwtPayload;
-    // const {userId} = req.user
     const {productId} = req.params
 
 

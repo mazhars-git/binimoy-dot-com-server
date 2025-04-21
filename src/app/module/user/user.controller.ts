@@ -62,6 +62,9 @@ const updateProfile = catchAsync(async (req, res) => {
   });
 });
 
+
+
+
 const changeStatus = catchAsync(async (req, res) => {
   // Get user data from request params
   const { id } = req.params;
