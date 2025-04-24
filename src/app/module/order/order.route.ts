@@ -9,25 +9,25 @@ const router = express.Router();
 
 router.post(
   '/',
+  auth(USER_ROLE.user),
   validateRequest(OrderValidations.createOrderValidationSchema),
-  OrderController.createOrder
+  OrderController.createOrder,
 );
 
+router.get('/verify', auth(USER_ROLE.user), OrderController.verifyPayment);
+
+router.get('/sales/:userId', auth(USER_ROLE.user), OrderController.getSales);
 router.get(
-    '/verify',
-    auth(USER_ROLE.user),
-    OrderController.verifyPayment,
-  );
+  '/purchase/:userId',
+  auth(USER_ROLE.user),
+  OrderController.getPurchase,
+);
 
-  router.get('/sales/:userId', auth(USER_ROLE.user), OrderController.getSales);
-  router.get('/purchase/:userId', auth(USER_ROLE.user), OrderController.getPurchase);
-
-  router.put(
-    '/:id',
-    auth(USER_ROLE?.user),
-    validateRequest(OrderValidations.updateOrderValidationSchema),
-    OrderController.updatedOrderStatus,
-  );
-  
+router.put(
+  '/:id',
+  auth(USER_ROLE?.user),
+  validateRequest(OrderValidations.updateOrderValidationSchema),
+  OrderController.updatedOrderStatus,
+);
 
 export const OrderRoutes = router;

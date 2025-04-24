@@ -1,11 +1,12 @@
 import { Types } from "mongoose";
-export type TOrderStatus = 'pending' | 'completed';
+export type TOrderStatus = 'pending' | 'completed' ;
 
 export type TOrder = {
   buyerId: Types.ObjectId;
   sellerId: Types.ObjectId;
   product: Types.ObjectId;
   status : TOrderStatus;
+  address:string;
   transaction: {
     id: string;
     transactionStatus: string;

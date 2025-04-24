@@ -3,24 +3,26 @@ import sendResponse from '../../utils/sendResponse';
 import { OrderService } from './order.service';
 import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/CatchAsync';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createOrder = catchAsync(async (req: Request, res: Response) => {
-  const payload = req.body;
-  const clientIp =
-    req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'N/A';
-
   const result = await OrderService.createOrderIntoDB(
-    payload,
-    clientIp as string,
+    req.user as JwtPayload,
+    req.body,
   );
+
+
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
     message: 'Order placed successfully. Redirect to ShurjoPay checkout URL.',
-    data: result,
+    data: {
+      checkout_url: result,
+    },
   });
 });
+
 
 const verifyPayment = catchAsync(async (req, res) => {
   const order = await OrderService.verifyPayment(req.query.order_id as string);
@@ -44,6 +46,8 @@ const getSales = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+
 const getPurchase = catchAsync(async (req, res) => {
     const { userId } = req.params;
     const result = await OrderService.getPurchaseOfUserFromDB(userId);
