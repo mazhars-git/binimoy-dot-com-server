@@ -3,6 +3,7 @@ import { Wishlist } from './wishlist.model';
 import { User } from '../user/user.model';
 import { TWishlist } from './wishlist.interface';
 import AppError from '../../errors/AppError';
+import { JwtPayload } from 'jsonwebtoken';
 
 // CREATE Wishlist Entry
 const createWishlistIntoDB = async (payload: TWishlist) => {
@@ -10,14 +11,24 @@ const createWishlistIntoDB = async (payload: TWishlist) => {
 
   // Check if product already in wishlist
 
-  const alreadyExists = await Wishlist.findOne({ userId, productId, isDeleted: false });
+  const alreadyExists = await Wishlist.findOne({
+    userId,
+    productId,
+    isDeleted: false,
+  });
 
   if (alreadyExists) {
-    throw new AppError(StatusCodes.CONFLICT, 'This product is already in your wishlist.');
+    throw new AppError(
+      StatusCodes.CONFLICT,
+      'This product is already in your wishlist.',
+    );
   }
 
   if (!userId) {
-    throw new AppError(StatusCodes.UNAUTHORIZED, 'Please log in to add items to your wishlist.');
+    throw new AppError(
+      StatusCodes.UNAUTHORIZED,
+      'Please log in to add items to your wishlist.',
+    );
   }
 
   // Validate user existence
@@ -25,8 +36,6 @@ const createWishlistIntoDB = async (payload: TWishlist) => {
   if (!userExists) {
     throw new AppError(StatusCodes.NOT_FOUND, 'User not found.');
   }
-
-
 
   // Create new wishlist entry
   const wishlistItem = await Wishlist.create(payload);
@@ -65,11 +74,21 @@ const getWishlistIntoDB = async (userId: string) => {
 };
 
 // DELETE (Soft Delete) Wishlist Item
-const deleteWishlistFromDB = async (userId: string, productId: string) => {
-  const wishlistItem = await Wishlist.findOne({ userId, productId });
+const deleteWishlistFromDB = async (user: JwtPayload, productId: string) => {
+  const userData = await User.findOne({ email: user.email });
+
+  if (!userData) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'User not found.');
+  }
+
+  const userId = userData._id;
+  const wishlistItem = await Wishlist.findOne({ _id: productId, userId });
 
   if (!wishlistItem) {
-    throw new AppError(StatusCodes.NOT_FOUND, 'Item not found in your wishlist.');
+    throw new AppError(
+      StatusCodes.NOT_FOUND,
+      'Item not found in your wishlist.',
+    );
   }
 
   wishlistItem.isDeleted = true;

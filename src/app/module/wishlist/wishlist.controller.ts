@@ -16,36 +16,32 @@ const createWishlist = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-
 const getWishlist = catchAsync(async (req: Request, res: Response) => {
-    const {userId} = req.params
+  const { userId } = req.params;
 
-    const result = await WishListServices.getWishlistIntoDB(userId);
+  const result = await WishListServices.getWishlistIntoDB(userId);
 
-    sendResponse(res, {
-      statusCode: status.OK,
-      success: true,
-      message: 'Wishlist retrieved successfully',
-      data: result,
-    });
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: 'Wishlist retrieved successfully',
+    data: result,
+  });
 });
-
 
 const deleteWishlist = catchAsync(async (req: Request, res: Response) => {
-    const { userId } = req.user as JwtPayload;
-    const {productId} = req.params
+  const user = req.user as JwtPayload;
+  const { id } = req.params;
 
+  const result = await WishListServices.deleteWishlistFromDB(user, id);
 
-    const result = await WishListServices.deleteWishlistFromDB(userId ,productId);
-
-    sendResponse(res, {
-      statusCode: status.OK,
-      success: true,
-      message: 'Wishlist deleted successfully',
-      data: result,
-    });
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: 'Wishlist deleted successfully',
+    data: result,
+  });
 });
-
 
 export const WishlistController = {
   createWishlist,
