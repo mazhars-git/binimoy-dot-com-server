@@ -5,21 +5,12 @@ import { TOrderStatus } from './order.constant';
 //Order validation schema
 const createOrderValidationSchema = z.object({
   body: z.object({
-    buyerID: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
-      message: 'Invalid Buyer ID format.',
+    product: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
+      message: 'Invalid product id ',
     }),
-    sellerID: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
-      message: 'Invalid Seller ID format.',
+    address: z.string().min(3, {
+      message: 'Address cannot be empty. Please enter your address',
     }),
-    itemID: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
-      message: 'Invalid Product ID format.',
-    }),
-    status: z
-      .enum([ ...TOrderStatus ] as [string, ...string[]], {
-        message: 'Order status is required.',
-        invalid_type_error: 'Invalid order status value.',
-      })
-      .optional(),
   }),
 });
 
