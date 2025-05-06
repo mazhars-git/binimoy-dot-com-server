@@ -2,7 +2,7 @@
 
 Adolbodol is a responsive and feature-rich web application designed for modern gadget buy & sell needs. The frontend is built with **Next.js**, **TypeScript**, **Redux Toolkit**, and **Tailwind CSS**, delivering a performant and scalable UI with role-based access control, secure JWT authentication, theme support, and more.
 
-![Adolbodol Preview](https://your-screenshot-url.com) <!-- Optional: Add a screenshot or logo -->
+# site live link:
 
 ---
 
@@ -22,4 +22,3 @@ Adolbodol is a responsive and feature-rich web application designed for modern g
 ---
 
 ## 📁 Project Structure
-
