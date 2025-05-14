@@ -12,7 +12,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://binimoy-client.vercel.app/', 'http://localhost:3000'],
     credentials: true,
   }),
 );
